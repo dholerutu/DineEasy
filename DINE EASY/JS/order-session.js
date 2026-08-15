@@ -1,1 +1,12 @@
-document.addEventListener('DOMContentLoaded',()=>{const place=document.getElementById('placeOrder');if(place)place.addEventListener('click',()=>{if(!place.disabled)localStorage.setItem('dineEasyQuickEnabled','true')},true)});
+document.addEventListener("DOMContentLoaded", () => {
+  const place = document.getElementById("placeOrder");
+  if (place)
+    place.addEventListener(
+      "click",
+      () => {
+        if (!place.disabled)
+          localStorage.setItem("dineEasyQuickEnabled", "true");
+      },
+      true,
+    );
+});
