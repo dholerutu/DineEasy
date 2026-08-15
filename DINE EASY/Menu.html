@@ -1,1 +1,117 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DineEasy | Menu</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="CSS/menu.css"></head><body><div class="app-shell"><aside class="brand-panel"><a class="brand-link" href="index.html"><img src="Images/brand-logo.png" alt="DineEasy" class="brand-mark"><span>DineEasy</span></a><p class="brand-tagline">SMART ORDERING. HAPPY DINING.</p><div class="table-card"><i class="bi bi-geo-alt"></i><div><small>YOU ARE DINING AT</small><strong>Table <b id="tableNo">12</b></strong></div></div><nav class="side-nav"><a class="active" href="Menu.html"><i class="bi bi-grid"></i>Our Menu</a><a href="Cart.html"><i class="bi bi-bag"></i>My Order <span id="sideCartCount">0</span></a></nav><div class="sidebar-note"><i class="bi bi-heart-fill"></i><p>Made fresh, served with care.</p></div></aside><main class="menu-main"><header class="topbar"><div><p class="eyebrow">WELCOME, GUEST</p><h1>What would you like today?</h1></div><a class="cart-trigger" href="Cart.html"><i class="bi bi-bag"></i><span id="topCartCount">0</span></a></header><section class="discover"><label class="search-box"><i class="bi bi-search"></i><input id="searchInput" type="search" placeholder="Search your favourite dish..."></label><div class="category-row" id="categoryFilters"></div></section><section class="menu-section"><div class="section-heading"><div><p class="eyebrow">HANDPICKED FOR YOU</p><h2 id="categoryTitle">Explore our menu</h2></div><span id="itemCount"></span></div><div class="food-grid" id="foodGrid"></div></section></main></div><aside id="menuQuick" class="menu-quick"><div class="quick-title">⚡ Quick Order <button id="quickMenuToggle">+</button></div><p>Fast extras for your table.</p><div id="menuQuickPanel" class="menu-quick-panel"></div></aside><div class="modal fade" id="dishModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content dish-modal"><button class="btn-close ms-auto m-3" data-bs-dismiss="modal"></button><img id="modalImage" alt=""><div class="p-4 pt-2"><span class="veg-text"><i class="bi bi-record-circle"></i> Pure veg</span><h3 id="modalTitle"></h3><p id="modalDescription"></p><div class="d-flex justify-content-between align-items-center"><strong id="modalPrice"></strong><button id="modalAdd" class="add-button">Add to order <i class="bi bi-plus-lg"></i></button></div></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="JS/menu.js"></script><script src="JS/quick-visibility.js"></script></body></html>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DineEasy | Menu</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="CSS/menu.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="brand-panel">
+        <a class="brand-link" href="index.html"
+          ><img
+            src="Images/brand-logo.png"
+            alt="DineEasy"
+            class="brand-mark"
+          /><span>DineEasy</span></a
+        >
+        <p class="brand-tagline">SMART ORDERING. HAPPY DINING.</p>
+        <div class="table-card">
+          <i class="bi bi-geo-alt"></i>
+          <div>
+            <small>YOU ARE DINING AT</small
+            ><strong>Table <b id="tableNo">12</b></strong>
+          </div>
+        </div>
+        <nav class="side-nav">
+          <a class="active" href="Menu.html"
+            ><i class="bi bi-grid"></i>Our Menu</a
+          ><a href="Cart.html"
+            ><i class="bi bi-bag"></i>My Order
+            <span id="sideCartCount">0</span></a
+          >
+        </nav>
+        <div class="sidebar-note">
+          <i class="bi bi-heart-fill"></i>
+          <p>Made fresh, served with care.</p>
+        </div>
+      </aside>
+      <main class="menu-main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">WELCOME, GUEST</p>
+            <h1>What would you like today?</h1>
+          </div>
+          <a class="cart-trigger" href="Cart.html"
+            ><i class="bi bi-bag"></i><span id="topCartCount">0</span></a
+          >
+        </header>
+        <section class="discover">
+          <label class="search-box"
+            ><i class="bi bi-search"></i
+            ><input
+              id="searchInput"
+              type="search"
+              placeholder="Search your favourite dish..."
+          /></label>
+          <div class="category-row" id="categoryFilters"></div>
+        </section>
+        <section class="menu-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">HANDPICKED FOR YOU</p>
+              <h2 id="categoryTitle">Explore our menu</h2>
+            </div>
+            <span id="itemCount"></span>
+          </div>
+          <div class="food-grid" id="foodGrid"></div>
+        </section>
+      </main>
+    </div>
+    <aside id="menuQuick" class="menu-quick">
+      <div class="quick-title">
+        ⚡ Quick Order <button id="quickMenuToggle">+</button>
+      </div>
+      <p>Fast extras for your table.</p>
+      <div id="menuQuickPanel" class="menu-quick-panel"></div>
+    </aside>
+    <div class="modal fade" id="dishModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content dish-modal">
+          <button class="btn-close ms-auto m-3" data-bs-dismiss="modal"></button
+          ><img id="modalImage" alt="" />
+          <div class="p-4 pt-2">
+            <span class="veg-text"
+              ><i class="bi bi-record-circle"></i> Pure veg</span
+            >
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <strong id="modalPrice"></strong
+              ><button id="modalAdd" class="add-button">
+                Add to order <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/menu.js"></script>
+    <script src="JS/quick-visibility.js"></script>
+  </body>
+</html>
