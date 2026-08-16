@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DineEasy | Order confirmed</title>
+    <link rel="stylesheet" href="CSS/order.css" />
+  </head>
+  <body>
+    <header class="simple-header">
+      <a href="Menu.html">DineEasy</a><span>Table <b id="table">12</b></span>
+    </header>
+    <main class="confirm">
+      <div class="success">✓</div>
+      <p class="eyebrow">ORDER CONFIRMED</p>
+      <h1>We’re preparing your food!</h1>
+      <p class="muted">Your order has been sent directly to the kitchen.</p>
+      <section class="token">
+        <small>YOUR TOKEN NUMBER</small><strong id="token">#DE-000</strong>
+        <div>
+          🍴 Table <b id="tokenTable">12</b><span id="orderTime">Just now</span>
+        </div>
+      </section>
+      <section class="tracking">
+        <p class="eyebrow">LIVE ORDER TRACKING</p>
+        <h2>Your order status <em>● Live</em></h2>
+        <div class="step done">
+          <i>✓</i
+          ><b
+            >Order Received<small id="receivedTime"
+              >Your order has reached our kitchen</small
+            ></b
+          >
+        </div>
+        <div class="step current">
+          <i>2</i><b>Preparing<small>Our chefs will start shortly</small></b>
+        </div>
+        <div class="step">
+          <i>3</i><b>Ready<small>We’ll bring it to your table</small></b>
+        </div>
+        <p class="eta">Estimated serving time: <b>15–20 minutes</b></p>
+      </section>
+      <section id="quickOrderSection" class="quick-order">
+        <p class="eyebrow">QUICK ORDER</p>
+        <h2>Need anything extra?</h2>
+        <p class="muted">
+          Additional items will be sent directly to your table.
+        </p>
+        <button id="quickToggle" class="pay-btn">Quick Order +</button>
+        <div id="quickPanel" class="quick-panel hidden">
+          <div id="quickItems" class="quick-items"></div>
+          <button id="sendQuick" class="pay-btn">Send to table</button>
+          <p id="quickConfirmation" class="quick-confirmation"></p>
+        </div>
+      </section>
+      <section class="finish-order">
+        <p class="eyebrow">READY TO FINISH?</p>
+        <h2>Complete your table order</h2>
+        <p class="muted">
+          We’ll notify the restaurant that your order is complete and the bill
+          can be sent.
+        </p>
+        <button id="finishOrder" class="pay-btn">
+          Complete final order & request bill
+        </button>
+        <p id="finishMessage" class="quick-confirmation"></p>
+      </section>
+      <a class="outline" href="Menu.html">Order something else</a>
+    </main>
+    <script src="JS/order.js"></script>
+    <script src="JS/quick-visibility.js"></script>
+  </body>
+</html>
