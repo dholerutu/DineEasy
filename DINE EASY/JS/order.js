@@ -24,6 +24,7 @@ const menuData = [
   ["Masala Chaas", "drinks", 65, "masala-chaas.jpg"],
   ["Sweet Lassi", "drinks", 85, "sweet-lassi.jpg"],
   ["Fresh Lime Soda", "drinks", 75, "fresh-lime-soda.jpg"],
+  ["Mineral Water", "drinks", 30, "mineral-water.jpeg"],
   ["Gulab Jamun", "desserts", 95, "gulab-jamun.png"],
   ["Rasmalai", "desserts", 110, "rasmalai.jpg"],
   ["Gajar Ka Halwa", "desserts", 120, "gajar-ka-halwa.jpg"],
@@ -38,7 +39,13 @@ const menuData = [
 const id = (x) => document.getElementById(x),
   read = (k, f) => JSON.parse(localStorage.getItem(k) || JSON.stringify(f)),
   write = (k, v) => localStorage.setItem(k, JSON.stringify(v)),
-  menu = () => read("dineEasyMenu", menuData),
+  menu = () => {
+    let saved = read("dineEasyMenu", menuData);
+    return [
+      ...menuData.map((dish) => saved.find((x) => x.id === dish.id) || dish),
+      ...saved.filter((dish) => !menuData.some((x) => x.id === dish.id)),
+    ];
+  },
   cart = () => read("dineEasyCart", []),
   put = (v) => write("dineEasyCart", v),
   rupees = (x) => "₹" + Math.round(x).toLocaleString("en-IN"),
@@ -81,17 +88,24 @@ function addToCart(n) {
 function recommendations(a) {
   let cats = a.map((x) => x.category),
     want = [];
+  if (cats.includes("starters"))
+    want.push("starters", "paneer", "mains", "breads", "drinks");
   if (cats.includes("paneer") || cats.includes("mains"))
     want.push("breads", "rice", "starters", "desserts");
   if (cats.includes("breads")) want.push("mains", "paneer", "drinks");
   if (cats.includes("rice")) want.push("mains", "paneer", "desserts");
-  return menu()
-    .filter((x) => x.available && !a.some((q) => q.id === x.id))
-    .map((x) => ({ x, score: want.indexOf(x.category) }))
-    .filter((x) => x.score >= 0)
-    .sort((a, b) => a.score - b.score || a.x.price - b.x.price)
-    .slice(0, 3)
-    .map((x) => x.x);
+  if (cats.includes("drinks") || cats.includes("desserts"))
+    want.push("starters", "paneer", "mains", "breads");
+  let available = menu().filter(
+      (x) => x.available && !a.some((q) => q.id === x.id),
+    ),
+    preferred = available
+      .filter((x) => want.includes(x.category))
+      .sort((x, y) => want.indexOf(x.category) - want.indexOf(y.category) || x.price - y.price),
+    fallback = available
+      .filter((x) => !preferred.includes(x))
+      .sort((x, y) => x.price - y.price);
+  return [...preferred, ...fallback].slice(0, 3);
 }
 function drawCart() {
   let box = id("cartList");
@@ -156,56 +170,7 @@ function initToken() {
   id("token").textContent = "#" + o.token;
   id("orderTime").textContent = o.time;
   id("receivedTime").textContent = "Received at " + o.time;
-  let fast = menu().filter((x) =>
-    [
-      "Tandoori Roti",
-      "Butter Naan",
-      "Garlic Naan",
-      "Jeera Rice",
-      "Masala Chaas",
-    ].includes(x.name),
-  );
-  id("quickItems").innerHTML = fast
-    .map(
-      (x) =>
-        `<button class="quick-item" data-id="${x.id}"><span>${x.name}</span><b>${rupees(x.price)}</b></button>`,
-    )
-    .join("");
-  id("quickToggle").onclick = () => id("quickPanel").classList.toggle("hidden");
-  id("quickItems").onclick = (e) => {
-    let b = e.target.closest(".quick-item");
-    if (b) b.classList.toggle("selected");
-  };
-  id("sendQuick").onclick = () => {
-    let selected = [...document.querySelectorAll(".quick-item.selected")].map(
-      (x) => menu().find((d) => d.id === +x.dataset.id),
-    );
-    if (!selected.length) {
-      id("quickConfirmation").textContent = "Please select at least one item.";
-      return;
-    }
-    let orders = read("dineEasyOrders", []),
-      q = {
-        id: Date.now(),
-        token: o.token,
-        table: o.table,
-        items: selected.map((x) => ({ ...x, qty: 1 })),
-        total: selected.reduce((n, x) => n + x.price, 0),
-        status: "Preparing",
-        time: new Date().toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-        quick: true,
-      };
-    orders.unshift(q);
-    write("dineEasyOrders", orders);
-    document
-      .querySelectorAll(".quick-item.selected")
-      .forEach((x) => x.classList.remove("selected"));
-    id("quickConfirmation").textContent =
-      "Quick order placed successfully! Your additional items have been sent to the kitchen.";
-  };
+  if (o.billRequested && id("orderMore")) id("orderMore").style.display = "none";
 }
 function admin() {
   let app = id("adminApp");
@@ -331,9 +296,9 @@ document.addEventListener("DOMContentLoaded", () => {
       saved.status = "Bill requested";
       write("dineEasyOrders", orders);
     }
-    id("finishMessage").textContent =
-      "Done! The restaurant has been notified that your bill is requested.";
+    id("finishMessage").textContent = "Done! The restaurant has been notified that your bill is requested.";
     finish.disabled = true;
     finish.textContent = "Bill requested ✓";
+    if (id("orderMore")) id("orderMore").style.display = "none";
   };
 });

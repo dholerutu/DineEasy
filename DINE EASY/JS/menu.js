@@ -168,6 +168,7 @@ const dishes = [
     "sweet lassi",
   ],
   ["Fresh Lime Soda", "drinks", 75, "Sparkling lime refreshment.", "fresh lime soda"],
+  ["Mineral Water", "drinks", 30, "Chilled sealed mineral water bottle.", "mineral-water.jpeg"],
   [
     "Gulab Jamun",
     "desserts",
@@ -195,7 +196,7 @@ const dishes = [
   category: d[1],
   price: d[2],
   description: d[3],
-  image: `Images/menu/${d[4].toLowerCase().replace(/\s+/g, "-")}.jpg`,
+  image: `Images/menu/${d[4].includes(".") ? d[4] : d[4].toLowerCase().replace(/\s+/g, "-") + ".jpg"}`,
 }));
 const $ = (id) => document.getElementById(id),
   money = (n) => "₹" + Math.round(n).toLocaleString("en-IN"),
@@ -321,6 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Tandoori Roti",
       "Jeera Rice",
       "Masala Chaas",
+      "Mineral Water",
     ].includes(x.name),
   );
   function drawQuick() {
