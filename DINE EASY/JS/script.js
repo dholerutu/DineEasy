@@ -27,22 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    // Animate welcome card
+    // Keep the main content visible while the page loads.
     const card = document.querySelector(".welcome-card");
-
     if (card) {
-
-        card.style.opacity = "0";
-        card.style.transform = "translateY(40px)";
-
-        setTimeout(() => {
-
-            card.style.transition = "0.8s ease";
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-
-        }, 150);
-
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
     }
 
 });
@@ -179,3 +168,4 @@ document.querySelectorAll(".step").forEach((element) => {
 
 console.log("%cWelcome to DineEasy 🍽️", "color:#61764B;font-size:18px;font-weight:bold;");
 console.log("Developed by Team DineEasy");
+
